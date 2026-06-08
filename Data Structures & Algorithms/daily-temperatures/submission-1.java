@@ -1,0 +1,30 @@
+class Solution {
+    public int[] dailyTemperatures(int[] a) {
+        //  class Node{
+        //     int val;
+        //     int idx;
+
+        //     Node(int val, int idx){
+        //         this.val = val;
+        //         this.idx = idx;
+        //     }
+        // }
+         int n = a.length;
+         Deque<Integer> st = new ArrayDeque<>();
+         int[] res = new int[n];
+
+        res[n-1] = 0;
+        st.push(n-1);
+
+        for(int i=n-2; i>=0; i--){
+            while(!st.isEmpty() && a[st.peek()] <= a[i]){
+                st.pop();
+            }
+            if(st.isEmpty()) res[i] = 0;
+            else res[i] = st.peek() - i;
+
+            st.push(i);
+        }
+        return res;
+    }
+}
